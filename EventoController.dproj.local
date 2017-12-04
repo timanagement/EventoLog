@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2017/12/03 21:30:01.000.503,=rtl.dcp</Transaction>
+    <Transaction>2017/12/03 21:30:16.000.244,=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
+    <Transaction>2017/12/03 21:37:04.000.227,C:\Projetos Delphi\BPL\EventoController\uEventoController.pas=C:\Users\User\Documents\Embarcadero\Studio\Projects\Unit7.pas</Transaction>
+    <Transaction>2017/12/03 21:37:12.000.222,C:\Projetos Delphi\BPL\EventoController\EventoController.dproj=C:\Users\User\Documents\Embarcadero\Studio\Projects\Package1.dproj</Transaction>
+    <Transaction>2017/12/04 13:42:41.000.207,C:\Projetos Delphi\Meus Componentes\EventoLog\EventoController.dproj=C:\Projetos Delphi\BPL\EventoController\EventoController.dproj</Transaction>
+    <Transaction>2017/12/04 13:49:35.000.785,C:\Projetos Delphi\BPL\EventoController\uEventoController.pas=</Transaction>
+    <Transaction>2017/12/04 13:49:43.000.284,=C:\Projetos Delphi\Meus Componentes\EventoLog\source\uEventoController.pas</Transaction>
+  </Transactions>
+</BorlandProject>

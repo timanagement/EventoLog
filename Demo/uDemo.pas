@@ -1,0 +1,46 @@
+unit uDemo;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uPrincipal, Vcl.StdCtrls;
+
+type
+  TForm7 = class(TForm)
+    edtCodigo: TEdit;
+    edtNome: TEdit;
+    Button1: TButton;
+    Label1: TLabel;
+    EventoLog1: TEventoLog;
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form7: TForm7;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm7.Button1Click(Sender: TObject);
+begin
+  {Caso desejar um nome para o arquivo Log
+  pode-se definir no ObjectInspector caso queira deixar um componente em
+  cada form Ex.: Se estiver no Form de Cadastro de Clientes.  Neste caso
+  basta editar em DesignTime o nome do arquivo de Log a ser Gerado na
+  propriedade ArquivoLog no ObjectInspector
+  ou passar em Runtime conforme abaixo }
+
+  EventoLog1.ArquivoLog := 'log19_Demo';
+
+  EventoLog1.Cabecalho := 'Cabeçalho gerado em RunTime';
+
+  EventoLog1.EventoLog(edtCodigo.Text, edtNome.Text, 'Concluído com sucesso...');
+end;
+
+end.

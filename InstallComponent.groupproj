@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{AC2A481C-61D8-497E-951D-9D7E9CD5B53A}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="FactoryClass.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="EventoController.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="EventoLog.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="FactoryClass">
+        <MSBuild Projects="FactoryClass.dproj"/>
+    </Target>
+    <Target Name="FactoryClass:Clean">
+        <MSBuild Projects="FactoryClass.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="FactoryClass:Make">
+        <MSBuild Projects="FactoryClass.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="EventoController">
+        <MSBuild Projects="EventoController.dproj"/>
+    </Target>
+    <Target Name="EventoController:Clean">
+        <MSBuild Projects="EventoController.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="EventoController:Make">
+        <MSBuild Projects="EventoController.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="EventoLog">
+        <MSBuild Projects="EventoLog.dproj"/>
+    </Target>
+    <Target Name="EventoLog:Clean">
+        <MSBuild Projects="EventoLog.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="EventoLog:Make">
+        <MSBuild Projects="EventoLog.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="FactoryClass;EventoController;EventoLog"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="FactoryClass:Clean;EventoController:Clean;EventoLog:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="FactoryClass:Make;EventoController:Make;EventoLog:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

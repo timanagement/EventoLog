@@ -1,0 +1,127 @@
+unit uEventoController;
+
+interface
+
+uses
+  System.SysUtils;
+
+type
+  tEvMensagem = procedure(Msg : String) of Object;
+  tEvProgresso = procedure(Posicao : Integer) of Object;
+type
+  TEventoController = class
+  private
+    FMsg 		: String;
+    FPosicao 			: Integer;
+    FEvMsg 				: tEvMensagem;
+    FEvProgresso 	: tEvProgresso;
+    FSeparador: String;
+   // FCabecalho: String;
+    FTextoLinha: String;
+    FTextoFinal: String;
+    FRodape: String;
+    procedure SetMsg(Value : String);
+    procedure SetPosicao(Value : Integer);
+  public
+    property EvMsg 				: tEvMensagem read FEvMsg write FEvMsg;
+   // property Cabecalho: String read FCabecalho write FCabecalho;
+    property TextoLinha: String read FTextoLinha write FTextoLinha;
+    property Rodape: String read FRodape write FRodape;
+    property Separador    : String read FSeparador write FSeparador;
+    property TextoFinal: String read FTextoFinal write FTextoFinal;
+    property EvProgresso 	: tEvProgresso read FEvProgresso write FEvProgresso;
+    property Msg			: String read FMsg write SetMsg;
+    property Posicao 			: Integer read FPosicao write SetPosicao;
+    function CabecalhoLog(aText: String): String;
+    procedure IniciaEvento(aText: String; aTime: TDateTime);
+    procedure CriarLog(aPath, aFile, aHeader, aLinha: String);
+    procedure FinalizaEvento(aText: String; aTime: TDateTime);
+    function RodapeLog: String;
+  end;
+  const ext: String = '.log';
+
+implementation
+
+function TEventoController.CabecalhoLog(aText: String): String;
+var
+  HeaderLog: String;
+begin
+  if (aText.Length >0) then
+  HeaderLog := Format(aText + ' => [ %s ]',
+    [DateTimeToStr(now)])
+    else
+    HeaderLog := Format('Processo iniciado em => [ %s ]',
+    [DateTimeToStr(now)]);
+    Result := HeaderLog;
+end;
+
+procedure TEventoController.FinalizaEvento(aText: String; aTime: TDateTime);
+begin
+  if aText = '' then
+    begin
+    FTextoFinal := Format('Processo finalizado => [ %s ]',
+    [DateTimeToStr(aTime)]);
+    Msg := FTextoFinal;
+    end
+    else
+    begin
+      FTextoFinal := Format(aText + ' => [ %s ]',
+    [DateTimeToStr(aTime)]);
+    Msg := FTextoFinal;
+    end;
+end;
+
+procedure TEventoController.CriarLog(aPath, aFile, aHeader, aLinha: String);
+var
+  Handle: TextFile;
+begin
+  //  Força a criaçao do Diretório Log Na pasta do App
+    if not(DirectoryExists(aPath + '\Log')) then
+      forceDirectories(aPath + '\Log');
+  try
+    Assign(Handle, aPath+'\Log\'+aFile + ext);
+    if not FileExists(aPath+'\Log\'+aFile + ext) then
+    begin
+      Rewrite(Handle);
+      Writeln(Handle, CabecalhoLog(aHeader));
+    end;
+      Append(Handle);
+      Writeln(Handle, aLinha);
+  finally
+    CloseFile(Handle);
+  end;
+end;
+
+procedure TEventoController.IniciaEvento(aText: String; aTime: TDateTime);
+begin
+    FTextoLinha := Format(aText + ' => [ %s ]',
+    [DateTimeToStr(aTime)]);
+    Msg := FTextoLinha;
+    FTextoLinha := '';
+end;
+
+function TEventoController.RodapeLog: String;
+begin
+  if FRodape = '' then
+  begin
+  FRodape := ('Log Gerdado by Componente TEventoLog');
+  Result := FRodape;
+  end
+  else
+  Result := FRodape;
+end;
+
+procedure TEventoController.setMsg(Value : String);
+begin
+  if Assigned(FevMsg) then
+    FevMsg(Value);
+end;
+
+procedure TEventoController.setPosicao(Value : Integer);
+begin
+  if Assigned(FevProgresso) then
+    FevProgresso(Value);
+end;
+
+
+end.
